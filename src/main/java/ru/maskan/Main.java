@@ -1,17 +1,19 @@
 package ru.maskan;
 
-import ru.maskan.exceptions.InvalidArgumentException;
+import org.apache.commons.io.FileUtils;
+
+import java.io.File;
 
 public class Main {
 
     public static void main(String[] args) {
-        String s = "0 1 3 3\n" +
-                "2 2 6 4\n" +
-                "1 0 3 5";
 
         try {
-            RectangleCalculator.calculate(s);
-        } catch (InvalidArgumentException e) {
+            String s = FileUtils.readFileToString(new File(args[0]));
+            float result = RectangleCalculator.calculate(s);
+
+            System.out.println(result);
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
