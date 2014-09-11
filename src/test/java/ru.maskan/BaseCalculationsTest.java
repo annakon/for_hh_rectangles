@@ -22,7 +22,22 @@ public class BaseCalculationsTest {
                 "2 2 6.2 4\n" +
                 "1.7 0 3 5";
 
-        assertEquals(new Float(18), RectangleCalculator.calculate(s));
+        assertEquals(new Float(16.13), RectangleCalculator.calculate(s));
+    }
+
+    @Test
+    public void testOneRectangle() throws InvalidArgumentException {
+        String s = "0 0 1 1";
+
+        assertEquals(new Float(1), RectangleCalculator.calculate(s));
+    }
+
+    @Test
+    public void testInside() throws InvalidArgumentException {
+        String s = "0 0 3 3\n" +
+                "1 1 2 2";
+
+        assertEquals(new Float(9), RectangleCalculator.calculate(s));
     }
 
 

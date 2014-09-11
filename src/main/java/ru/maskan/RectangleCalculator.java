@@ -34,31 +34,61 @@ public class RectangleCalculator {
 
     private static float lengthY(List<Rectangle> rectangles, Float x) {
 
-        Map<Float, Integer> Oy = new TreeMap<Float, Integer>();
+        Set<ComparableYPoint> Oy = new TreeSet<ComparableYPoint>();
         for (Rectangle g : rectangles) {
 
             if (g.getLeftLowerX() <= x && g.getRightUpperX() > x) {
-                Oy.put(g.getLeftLowerY(), 1);
-                Oy.put(g.getRightUpperY(), -1);
+                Oy.add(new ComparableYPoint(g.getLeftLowerY(), 1));
+                Oy.add(new ComparableYPoint(g.getRightUpperY(), -1));
             }
         }
 
         int t = 1;
 
-        Float prev = null, sum = 0f;
-        for (Map.Entry<Float, Integer> e : Oy.entrySet()) {
+        Float prevCoordinate = null, sum = 0f;
+        for (ComparableYPoint e : Oy) {
 
-            if (prev != null) {
+            if (prevCoordinate != null) {
                 if (t > 0) {
-                    sum += e.getKey() - prev;
+                    sum += e.getCoordinate() - prevCoordinate;
                 }
 
-                t += e.getValue();
+                t += e.getFlag();
             }
-            prev = e.getKey();
+            prevCoordinate = e.getCoordinate();
         }
 
         return sum;
 
+    }
+}
+
+class ComparableYPoint implements Comparable {
+    float coordinate;
+    int flag;
+
+    ComparableYPoint(float coordinate, int flag) {
+        this.coordinate = coordinate;
+        this.flag = flag;
+    }
+
+    public float getCoordinate() {
+        return coordinate;
+    }
+
+    public int getFlag() {
+        return flag;
+    }
+
+    @Override
+    public int compareTo(Object o) {
+
+        ComparableYPoint tmp = (ComparableYPoint) o;
+        if (this.coordinate < tmp.coordinate) {
+            return -1;
+        } else if (this.coordinate > tmp.coordinate) {
+            return 1;
+        }
+        return 0;
     }
 }

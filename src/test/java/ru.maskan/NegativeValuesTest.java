@@ -9,10 +9,17 @@ public class NegativeValuesTest {
 
     @Test
     public void testNegativeValues() throws InvalidArgumentException {
-        String s = "-2 2 3 3\n" +
-                "2 12 6 4\n" +
-                "1 0 3 5";
+        String s = "1 1 2 2\n" +
+                "-2 -2 -1 -1";
 
-        assertEquals(new Float(18), RectangleCalculator.calculate(s));
+        assertEquals(new Float(2), RectangleCalculator.calculate(s));
+    }
+    @Test
+    public void testNegativeValues2() throws InvalidArgumentException {
+        String s = "1 1 2 2\n" +
+                "-2 -2 -1 -1\n" +
+                "-2 1 -1 2";
+
+        assertEquals(new Float(3), RectangleCalculator.calculate(s));
     }
 }
